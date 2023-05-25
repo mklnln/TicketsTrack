@@ -14,7 +14,42 @@ const client = new MongoClient(MONGO_URI, options);
 
 // use this package to generate unique ids: https://www.npmjs.com/package/uuid
 const { v4: uuidv4 } = require("uuid");
-const db = client.db("slingair");
+const db = client.db("ticket-tracker");
+
+console.log("test, handlers.js is opening");
+const getSeats = async (req, res) => {
+  console.log("getSeats triggered");
+  console.log(req, "req");
+  try {
+    await client.connect();
+    console.log("getting seats...");
+    const result = await db.collection("seats").find().toArray();
+    console.log(result, "got seats");
+    console.log("YOU HAVE NO IDEA ABOUT THE OBJECT.KEYS OR ID DO YOU");
+    // const seatsArr = Object.keys(result[0]).filter((key) => {
+    //   if (key !== "_id") {
+    //     return key;
+    //   }
+    // });
+
+    if (result) {
+      res.status(200).json({
+        status: 200,
+        message: "Request received. Here are all the seat availabilities.",
+        body: result,
+      });
+    } else {
+      res.status(404).json({
+        status: 404,
+        message: "We got your request. Something went wrong.",
+      });
+    }
+  } catch (err) {
+    console.log(err);
+    console.log("da???");
+  }
+  client.close();
+};
 
 // returns an array of all flight numbers
 const getFlights = async (req, res) => {
@@ -541,11 +576,5 @@ const deleteReservation = async (req, res) => {
 };
 
 module.exports = {
-  getFlights,
-  getFlight,
-  getReservations,
-  addReservation,
-  getSingleReservation,
-  deleteReservation,
-  updateReservation,
+  getSeats,
 };
