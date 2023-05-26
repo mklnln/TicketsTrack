@@ -44,7 +44,7 @@ const SeatsGrid: React.FC<SeatsGridProps> = ({ chosenSeat, setChosenSeat }) => {
   };
 
   return (
-    <>
+    <SeatsLayout>
       {seats ? (
         seats.map((row: RowDBObject) => {
           return (
@@ -76,18 +76,26 @@ const SeatsGrid: React.FC<SeatsGridProps> = ({ chosenSeat, setChosenSeat }) => {
         />
       )}
       <h1>{chosenSeat}</h1>
-    </>
+    </SeatsLayout>
   );
 };
+
+const SeatsLayout = styled.div`
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: flex-end;
+  height: 300px;
+`;
 
 const RowDiv = styled.div`
   display: flex;
   flex-direction: row;
   justify-content: center;
   align-items: center;
+  height: 100%;
+  // flex: 1;
   border: 1px dashed yellowgreen;
-  // height: 200px;
-  // width: 600px;
 `;
 
 const RowTitle = styled.span`
@@ -95,8 +103,8 @@ const RowTitle = styled.span`
   text-align: left;
 `;
 const SingleSeat = styled.button`
-  height: 60px;
-  width: 60px;
+  height: 40px;
+  width: 40px;
   border: 1px solid fuchsia;
   padding: 0px;
 
