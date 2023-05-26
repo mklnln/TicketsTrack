@@ -16,16 +16,10 @@ const client = new MongoClient(MONGO_URI, options);
 const { v4: uuidv4 } = require("uuid");
 const db = client.db("ticket-tracker");
 
-console.log("test, handlers.js is opening");
 const getSeats = async (req, res) => {
-  console.log("getSeats triggered");
-  console.log(req, "req");
   try {
     await client.connect();
-    console.log("getting seats...");
     const result = await db.collection("seats").find().toArray();
-    console.log(result, "got seats");
-    console.log("YOU HAVE NO IDEA ABOUT THE OBJECT.KEYS OR ID DO YOU");
     // const seatsArr = Object.keys(result[0]).filter((key) => {
     //   if (key !== "_id") {
     //     return key;
@@ -46,7 +40,6 @@ const getSeats = async (req, res) => {
     }
   } catch (err) {
     console.log(err);
-    console.log("da???");
   }
   client.close();
 };
