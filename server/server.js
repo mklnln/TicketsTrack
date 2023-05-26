@@ -29,11 +29,7 @@ express()
   // Nothing to modify above this line
   // ---------------------------------
 
-  .get("/api/get-seats", (req, res) => {
-    console.log(req, "reqq");
-    console.log(res, "ress");
-    console.log("yo waddap, anon arrow");
-  })
+  .get("/api/get-seats", getSeats)
   // .get("/api/get-flight/:flight", getFlight)
   // .get("/api/get-reservations", getReservations)
   // .get("/api/get-reservation/:reservation", getSingleReservation)
